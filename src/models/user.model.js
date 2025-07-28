@@ -59,4 +59,4 @@ userSchema.methods.generateToken = function(){
     }
 )}
 
-export const User = mongoose.model(userSchema,"User")
+export const User = mongoose.model("User",userSchema)

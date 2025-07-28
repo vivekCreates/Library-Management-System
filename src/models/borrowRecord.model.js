@@ -29,4 +29,4 @@ const borrowRecordSchema = new mongoose.Schema(
     {timestamps:true}
 )
 
-export const BorrowRecord  = mongoose.model(borrowRecordSchema,"BorrowRecord");
+export const BorrowRecord  = mongoose.model("BorrowRecord",borrowRecordSchema);

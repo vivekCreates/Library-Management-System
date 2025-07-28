@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 
+
 const app = express();
 
 
@@ -17,9 +18,12 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 
+// import routes
+import userRoutes from "./routes/user.route.js";
 
-app.get("/",(req,res)=>{
-    res.send("Hello World");
-})
+
+// decleare routes
+app.use("/api/v1/users",userRoutes);
+
 
 export default app;
