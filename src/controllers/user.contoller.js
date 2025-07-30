@@ -84,7 +84,7 @@ const signOutUser = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user._id).select("-password");
   if (!user) {
     throw new ApiError(400, "You need to signIn first");
   }
@@ -94,7 +94,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find();
+  const users = await User.find().select("-password");
   if (users.length == 0) {
     return res.status(200).json(new ApiResponse(200, "No users yet"));
   }

@@ -21,9 +21,10 @@ const borrowRecordSchema = new mongoose.Schema(
             type:Number,
             default:0
         },
-        isRetured:{
-            type:Boolean,
-            default:false
+        status:{
+            type:String,
+            enum:["BORROWED","RETURNED"],
+            default:"BORROWED"
         }
     },
     {timestamps:true}

@@ -20,10 +20,12 @@ app.use(cookieParser());
 
 // import routes
 import userRoutes from "./routes/user.route.js";
+import bookRoutes from "./routes/book.route.js";
 
 
 // decleare routes
 app.use("/api/v1/users",userRoutes);
+app.use("/api/v1/books",bookRoutes);
 
 
 export default app;

@@ -6,6 +6,10 @@ const bookSchema = new mongoose.Schema(
             type:String,
             required:true
         },
+        genre:{
+            type:String,
+            required:true
+        },
         author:{
             type:String,
             required:true
@@ -16,15 +20,11 @@ const bookSchema = new mongoose.Schema(
         },
         totalCopies:{
             type:Number,
-            default:5
+            default:1
         },
         availableCopies:{
             type:Number,
-            default:5
-        },
-        price:{
-            type:Number,
-            enum:["INR","USD"]
+            default:1
         }
     }
     ,{timestamps:true})
