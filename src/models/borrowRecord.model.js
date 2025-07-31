@@ -11,10 +11,9 @@ const borrowRecordSchema = new mongoose.Schema(
             ref:"Book"
         },
         borrowDate:{
-            type:Date,
-            default:Date.now()
+            type:Date
         },
-        returnDate:{
+        dueDate:{
             type:Date
         },
         loanAmount:{

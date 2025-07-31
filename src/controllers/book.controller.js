@@ -6,9 +6,8 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import checkCurrentUserAdminOrNot from "../utils/checkAdmin.js";
 
 const addBook = asyncHandler(async (req, res) => {
-  const currentUser = await User.findById(req.user._id);
 
-  checkCurrentUserAdminOrNot()
+  checkCurrentUserAdminOrNot(req.user?._id);
 
   const { title, genre, description, author } = req.body;
 
@@ -71,7 +70,7 @@ const getAllBooks = asyncHandler(async(req,res)=>{
 });
 
 const deleteBook = asyncHandler(async(req,res)=>{
-  checkCurrentUserAdminOrNot()
+  checkCurrentUserAdminOrNot(req.user?._id)
   const {id} = req.params;
   await Book.findByIdAndDelete(id);
   return res.status(200).json(
@@ -80,7 +79,7 @@ const deleteBook = asyncHandler(async(req,res)=>{
 });
 
 const increaseBookTotalCount = asyncHandler(async(req,res)=>{
-  checkCurrentUserAdminOrNot()
+  checkCurrentUserAdminOrNot(req.user?._id);
   const {id} = req.params;
 
   const book = await Book.findByIdAndUpdate(id,{

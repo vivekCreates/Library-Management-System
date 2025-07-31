@@ -21,11 +21,13 @@ app.use(cookieParser());
 // import routes
 import userRoutes from "./routes/user.route.js";
 import bookRoutes from "./routes/book.route.js";
+import borrowRoutes from "./routes/borrowRecord.route.js";
 
 
 // decleare routes
 app.use("/api/v1/users",userRoutes);
 app.use("/api/v1/books",bookRoutes);
+app.use("/api/v1/borrows",borrowRoutes);
 
 
 export default app;

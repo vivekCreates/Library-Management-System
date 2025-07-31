@@ -5,10 +5,8 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import generateJWTToken from "../utils/generateToken.js";
 
 const options = {
-  maxAge: 24 * 60 * 60 * 1000,
   httpOnly: true,
-  secure: true,
-  sameSite: "strict",
+  secure: true
 };
 
 const signUpUser = asyncHandler(async (req, res) => {
@@ -56,7 +54,6 @@ const signInUser = asyncHandler(async (req, res) => {
   }
 
   const token = await generateJWTToken(user._id);
-  console.log("token", token);
   const userHasToken = await User.findOne({ email });
   return res
     .status(200)
