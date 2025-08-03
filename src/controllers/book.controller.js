@@ -1,33 +1,44 @@
 import { Book } from "../models/book.model.js";
-import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import checkCurrentUserAdminOrNot from "../utils/checkAdmin.js";
+import uploadImageOnCloudinary from "../utils/uploadOnCloudinary.js";
 
 const addBook = asyncHandler(async (req, res) => {
 
-  checkCurrentUserAdminOrNot(req.user?._id);
 
-  const { title, genre, description, author } = req.body;
+  const { title, genre, description, author ,summary,coverImageColor} = req.body;
 
+  console.log("body: ",req.body);
   if (
-    [title, genre, description, author].some((fields) => fields?.trim() == "")
+    [title, genre, description, author,summary,coverImageColor].some((fields) => fields?.trim() == "")
   ) {
     throw new ApiError(400, "All fields are required");
   }
+
 
   const existedBook = await Book.findOne({ title, author });
   
   if (existedBook) {
     throw new ApiError(400,"Book already exists with this title and author");
   }
+
+  const coverImageFilePath = req.file?.path;
  
+  if(!coverImageFilePath){
+    throw new ApiError(400,"Cover image is required")
+  }
+  const coverImage = await uploadImageOnCloudinary(coverImageFilePath)
+
     const book = await Book.create({
         title,
         genre,
         description,
         author,
+        summary,
+        coverImageColor,
+        coverImageUrl:coverImage?.secure_url
       });
 
 

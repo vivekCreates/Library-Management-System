@@ -14,3 +14,5 @@ const calculateBorrowBookLoanAmount = (dueDate,returnDate) =>{
         return 0
     }
 }
+
+export default calculateBorrowBookLoanAmount

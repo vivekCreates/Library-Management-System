@@ -22,6 +22,7 @@ app.use(cookieParser());
 import userRoutes from "./routes/user.route.js";
 import bookRoutes from "./routes/book.route.js";
 import borrowRoutes from "./routes/borrowRecord.route.js";
+import errorHandler from "./middlewares/error.middleware.js";
 
 
 // decleare routes
@@ -30,4 +31,6 @@ app.use("/api/v1/books",bookRoutes);
 app.use("/api/v1/borrows",borrowRoutes);
 
 
+
+app.use(errorHandler);
 export default app;

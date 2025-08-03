@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 import { DB_NAME } from "../constant.js";
 
 
-
-
 const connectToDatabase = async() => {
     if(!process.env.MONGODB_URI){
         console.log("Please check your mongodb URI")

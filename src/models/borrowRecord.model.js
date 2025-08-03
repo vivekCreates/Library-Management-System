@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { bookStatusEnum } from "../constant.js";
 
 const borrowRecordSchema = new mongoose.Schema(
     {
@@ -22,7 +23,7 @@ const borrowRecordSchema = new mongoose.Schema(
         },
         status:{
             type:String,
-            enum:["BORROWED","RETURNED"],
+            enum:bookStatusEnum,
             default:"BORROWED"
         }
     },

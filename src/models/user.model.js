@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { userRolesEnum } from "../constant.js";
 
 
 const userSchema = new mongoose.Schema(
@@ -29,7 +30,7 @@ const userSchema = new mongoose.Schema(
         },
         role:{
             type:String,
-            enum:["USER","ADMIN"],
+            enum:userRolesEnum,
             default:"USER"
         }
     }
@@ -51,7 +52,8 @@ userSchema.methods.generateToken = function(){
     return jwt.sign({
         _id:this._id,
         name:this.name,
-        email:this.email
+        email:this.email,
+        role:this.role
     },
     process.env.JWT_TOKEN_SECRET,
     {

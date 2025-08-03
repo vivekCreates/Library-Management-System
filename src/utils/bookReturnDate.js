@@ -1,21 +1,27 @@
-const calculateBorrowBookReturnDate = (duration)=>{
-    const borrowDate = new Date.now();
-    const dueDate = new Date(borrowDate);
-    switch (duration) {
-        case duration=="1d":
-            returnDate.setDate() + 1
-        break;
+import { bookBorrowDurationEnum } from "../constant.js";
 
-        case duration=="1w":
-            returnDate.setDate() + 7
-        break;
-        case duration=="1m":
-            returnDate.setMonth() + 1
-        break;
-    
-        default:
-            break;
-    }
+const calculateBorrowBookReturnDate = (duration) => {
+  const borrowDate = new Date();
+  const dueDate = new Date(borrowDate);
 
-    return {borrowDate,dueDate}
-}
+  switch (duration) {
+    case bookBorrowDurationEnum.DAY:
+      dueDate.setDate(dueDate.getDate() + 1);
+      break;
+
+    case bookBorrowDurationEnum.WEEK:
+      dueDate.setDate(dueDate.getDate() + 7);
+      break;
+
+    case bookBorrowDurationEnum.MONTH:
+      dueDate.setMonth(dueDate.getMonth() + 1);
+      break;
+
+    default:
+        throw new Error("Invalid duration");
+  }
+
+  return { borrowDate, dueDate };
+};
+
+export default calculateBorrowBookReturnDate;
