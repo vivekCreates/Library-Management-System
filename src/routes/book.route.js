@@ -15,10 +15,17 @@ import authorizeRole from "../middlewares/authorizeRole.middleware.js";
 const router = Router();
 
 router.route("/").get(getAllBooks);
-router.route("/add").post(upload.single("coverImageUrl"),authMiddleware,authorizeRole("ADMIN") ,addBook);
-router.route("/:id").get(authMiddleware,getBook);
-router.route("/:id").post(authMiddleware,deleteBook);
-router.route("/:id").patch(authMiddleware,increaseBookTotalCount);
+router.route("/add")
+.post(
+    upload.single("coverImageUrl"),
+    authMiddleware,authorizeRole("ADMIN") ,
+    addBook
+);
+
+router.route("/:id")
+.get(authMiddleware,getBook)
+.delete(authMiddleware,authMiddleware,deleteBook)
+.patch(authMiddleware,authMiddleware,increaseBookTotalCount);
 
 
 export default router;

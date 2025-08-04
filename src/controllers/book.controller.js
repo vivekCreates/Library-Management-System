@@ -7,7 +7,6 @@ import uploadImageOnCloudinary from "../utils/uploadOnCloudinary.js";
 
 const addBook = asyncHandler(async (req, res) => {
 
-
   const { title, genre, description, author ,summary,coverImageColor} = req.body;
 
   console.log("body: ",req.body);
@@ -81,7 +80,6 @@ const getAllBooks = asyncHandler(async(req,res)=>{
 });
 
 const deleteBook = asyncHandler(async(req,res)=>{
-  checkCurrentUserAdminOrNot(req.user?._id)
   const {id} = req.params;
   await Book.findByIdAndDelete(id);
   return res.status(200).json(
@@ -89,18 +87,30 @@ const deleteBook = asyncHandler(async(req,res)=>{
   )
 });
 
-const increaseBookTotalCount = asyncHandler(async(req,res)=>{
-  checkCurrentUserAdminOrNot(req.user?._id);
-  const {id} = req.params;
+const increaseBookTotalCount = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { count = 1 } = req.body;
 
-  const book = await Book.findByIdAndUpdate(id,{
-    $inc:{availableCopies:1,totalCopies:1},
-  })
+  const book = await Book.findByIdAndUpdate(
+    id,
+    {
+      $inc: {
+        availableCopies: count,
+        totalCopies: count,
+      },
+    },
+    { new: true }
+  );
 
-  return res.status(200).json(
-    new ApiResponse(200,{book},"book count increased")
-  )
+  if (!book) {
+    return res.status(404).json(new ApiResponse(404, null, "Book not found"));
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { book }, "Book count increased"));
 });
+
 
 
 
