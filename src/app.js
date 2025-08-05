@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import arcjetMiddleware from "./middlewares/arcjet.middleware.js";
 
 
 const app = express();
@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true,limit:"16kb"}));
 app.use(express.static("public"));
 app.use(cookieParser());
+app.use(arcjetMiddleware)
 
 
 // import routes
@@ -23,6 +24,7 @@ import userRoutes from "./routes/user.route.js";
 import bookRoutes from "./routes/book.route.js";
 import borrowRoutes from "./routes/borrowRecord.route.js";
 import errorHandler from "./middlewares/error.middleware.js";
+
 
 
 // decleare routes
